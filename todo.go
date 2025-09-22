@@ -31,6 +31,16 @@ var commands = map[string]Command{
 		Description: "Remove a task by its number.",
 		Function:    removeCmd,
 	},
+	"complete": {
+		Usage:       "complete <task number>",
+		Description: "Mark a task as complete.",
+		Function:    completeCmd,
+	},
+	"clear": {
+		Usage:       "clear",
+		Description: "Remove all tasks from your list.",
+		Function:    clearCmd,
+	},
 }
 
 func removeElement(arr []string, index int) []string {
@@ -136,6 +146,25 @@ func removeCmd() {
 	}
 	todo := removeTodo(index - 1)
 	fmt.Printf("Removed: %d. %s", index, todo)
+}
+
+func clearCmd() {
+	if err := os.WriteFile("todo.txt", []byte(""), 0644); err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("Removed all todo list")
+}
+
+func completeCmd() {
+	if len(os.Args) < 3 {
+		log.Fatal("No todo number provided")
+	}
+	index, err := strconv.Atoi(os.Args[2])
+	if err != nil {
+		log.Fatal("Provide a valid natural number")
+	}
+	result := markDoneTodo(index - 1)
+	fmt.Println(result)
 }
 
 func helpCmd() {
