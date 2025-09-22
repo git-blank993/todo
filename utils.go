@@ -1,6 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+	"path/filepath"
+)
 
 func removeElement(arr []string, index int) []string {
 	a := make([]string, 0)
@@ -11,4 +15,13 @@ func removeElement(arr []string, index int) []string {
 	a = append(a, arr[:index]...)
 	a = append(a, arr[index+1:]...)
 	return a
+}
+
+func getTodoFilePath() (string, error) {
+	homeDir, err := os.UserHomeDir()
+	if err != nil {
+		return "", err
+	}
+
+	return filepath.Join(homeDir, "todo.txt"), nil
 }

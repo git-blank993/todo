@@ -58,7 +58,11 @@ func removeCmd(args []string) {
 }
 
 func clearCmd(args []string) {
-	if err := os.WriteFile("todo.txt", []byte(""), 0644); err != nil {
+	filePath, err := getTodoFilePath()
+	if err != nil {
+		log.Fatal(err)
+	}
+	if err := os.WriteFile(filePath, []byte(""), 0644); err != nil {
 		log.Fatal(err)
 	}
 	fmt.Println("Removed all todo list")

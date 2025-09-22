@@ -41,7 +41,11 @@ var commands = map[string]Command{
 }
 
 func getTodos() ([]string, error) {
-	content, err := os.ReadFile("todo.txt")
+	filePath, err := getTodoFilePath()
+	if err != nil {
+		return nil, err
+	}
+	content, err := os.ReadFile(filePath)
 	if err != nil {
 		return nil, err
 	}
@@ -50,7 +54,11 @@ func getTodos() ([]string, error) {
 }
 
 func addTodo(input []string) (string, error) {
-	f, err := os.OpenFile("todo.txt", os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0644)
+	filePath, err := getTodoFilePath()
+	if err != nil {
+		return "", err
+	}
+	f, err := os.OpenFile(filePath, os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0644)
 	if err != nil {
 		return "", err
 	}
@@ -71,12 +79,16 @@ func removeTodo(index int) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	if index < 0 || index > len(todos) {
+	if index < 0 || index > len(todos)-1 {
 		return "", fmt.Errorf("provide a valid natural number")
 	}
 	newTodo := removeElement(todos, index)
 	newTodoString := strings.Join(newTodo, "\n")
-	if err := os.WriteFile("todo.txt", []byte(newTodoString), 0644); err != nil {
+	filePath, err := getTodoFilePath()
+	if err != nil {
+		return "", err
+	}
+	if err := os.WriteFile(filePath, []byte(newTodoString), 0644); err != nil {
 		return "", err
 	}
 	return todos[index], nil
@@ -87,8 +99,14 @@ func markDoneTodo(index int) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	if index < 0 || index > len(todos) {
+	if index < 0 || index > len(todos)-1 {
 		return "", fmt.Errorf("provide a valid natural number")
+	}
+	if len(todos) < 1 {
+		return "", fmt.Errorf("no todos in the list")
+	}
+	if todos[index] == "/n" || todos[index] == "" {
+		return "", fmt.Errorf("no such todos in the list")
 	}
 	todoData := strings.Split(todos[index], " ")
 	if todoData[0] == "[x]" {
@@ -99,7 +117,11 @@ func markDoneTodo(index int) (string, error) {
 	todoData[0] = "[x]"
 	todos[index] = strings.Join(todoData, " ")
 	newTodoString := strings.Join(todos, "\n")
-	if err := os.WriteFile("todo.txt", []byte(newTodoString), 0644); err != nil {
+	filePath, err := getTodoFilePath()
+	if err != nil {
+		return "", err
+	}
+	if err := os.WriteFile(filePath, []byte(newTodoString), 0644); err != nil {
 		fmt.Printf("Error: %s\n", err)
 		return "", err
 	}
