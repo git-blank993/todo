@@ -1,8 +1,9 @@
-# Go To-Do CLI 📝
+# Go Task CLI 📝
 
 A simple, command-line to-do list application written in Go. This tool allows you to manage your tasks directly from the terminal.
 
-
+## Roadmap.sh
+https://roadmap.sh/projects/task-tracker
 
 ---
 
@@ -10,9 +11,9 @@ A simple, command-line to-do list application written in Go. This tool allows yo
 
 * **Add** a new task to your list.
 * **List** all current tasks.
-* **Mark** a task as complete.
-* **Remove** a specific task by its number.
-* **Clear** the entire to-do list.
+* **Update** a task details.
+* **Delete** a specific task by its number.
+* **Clear** the entire task list.
 
 ---
 
@@ -22,8 +23,8 @@ You need to have **Go** (version 1.18 or higher) installed on your system.
 
 1.  **Clone the repository** (replace with your actual repository URL):
     ```sh
-    git clone [https://github.com/your-username/todo-cli.git](https://github.com/your-username/todo-cli.git)
-    cd todo-cli
+    git clone [https://github.com/your-username/todo.git](https://github.com/your-username/todo.git)
+    cd todo
     ```
 
 2.  **Build the application:**
@@ -47,39 +48,5 @@ Here are the basic commands for using the tool.
 todo add "Buy milk and bread"
 ```
 
-### List all tasks
-```sh
-todo list
-```
-### Output
-1. Buy milk and bread
-2. Finish the README file   (✓)
 
-### Complete a task
-
-Mark a task as complete using its number.
-
-```sh
-todo complete 1
-```
-
-### Remove a task
-
-Remove a task from the list using its number.
-
-```sh
-todo remove 2
-```
-### Clear All Tasks
-This will remove all tasks from your list.
-
-```sh
-todo clear
-```
-
-### Get Help
-Shows a list of all available commands.
-
-```sh
-todo
 ```
