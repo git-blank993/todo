@@ -3,17 +3,18 @@
 A simple, command-line to-do list application written in Go. This tool allows you to manage your tasks directly from the terminal.
 
 ## Roadmap.sh
+
 https://roadmap.sh/projects/task-tracker
 
 ---
 
 ## Features
 
-* **Add** a new task to your list.
-* **List** all current tasks.
-* **Update** a task details.
-* **Delete** a specific task by its number.
-* **Clear** the entire task list.
+- **Add** a new task to your list.
+- **List** all current tasks.
+- **Update** a task details.
+- **Delete** a specific task by its number.
+- **Clear** the entire task list.
 
 ---
 
@@ -21,20 +22,23 @@ https://roadmap.sh/projects/task-tracker
 
 You need to have **Go** (version 1.18 or higher) installed on your system.
 
-1.  **Clone the repository** (replace with your actual repository URL):
+1.  **Clone the repository** :
+
     ```sh
-    git clone [https://github.com/your-username/todo.git](https://github.com/your-username/todo.git)
+    git clone [https://github.com/git-blank993/todo.git](https://github.com/git-blank993/todo.git)
     cd todo
     ```
 
 2.  **Build the application:**
+
     ```sh
     go build .
     ```
 
 3.  **Move the executable** to a directory in your system's PATH to make it globally accessible:
     ```sh
-    sudo mv todo /usr/local/bin/
+    mv todo task-cli
+    sudo mv task-cli /usr/local/bin/
     ```
 
 ---
@@ -43,10 +47,29 @@ You need to have **Go** (version 1.18 or higher) installed on your system.
 
 Here are the basic commands for using the tool.
 
-### Add a Task
 ```sh
-todo add "Buy milk and bread"
-```
 
+# Adding a new task
+task-cli add "Buy groceries"
+# Output: Task added successfully (ID: 1)
+
+# Updating and deleting tasks
+task-cli update 1 "Buy groceries and cook dinner"
+task-cli delete 1
+
+# Marking a task as in progress or done
+task-cli mark-in-progress 1
+task-cli mark-done 1
+
+# Listing all tasks
+task-cli list
+
+# Listing tasks by status
+task-cli list done
+task-cli list todo
+task-cli list in-progress
+
+# Clear all tasks
+task-cli clear
 
 ```
